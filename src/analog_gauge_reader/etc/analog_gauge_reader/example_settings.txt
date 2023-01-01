@@ -1,0 +1,14 @@
+#
+#--username admin
+#--password mypassword
+#--url http://camera.private.lan/snapshot.cgi
+#
+--min-value 0.0
+--max-value 4.0
+--min-angle 42
+--max-angle 312
+#
+--text-scale 0.4
+--unit bar
+#
+--threshold 175

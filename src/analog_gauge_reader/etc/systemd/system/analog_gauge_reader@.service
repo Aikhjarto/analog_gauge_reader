@@ -1,0 +1,14 @@
+[Unit]
+Description=Analog gauge reader %I
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u -m analog_gauge_reader --settings-file %I
+
+# Restart every >2 seconds to avoid StartLimitInterval failure
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

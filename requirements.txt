@@ -1,0 +1,11 @@
+brotlipy
+ExifRead
+lmdb
+numpy>=1.7
+opencv-python>3.3.0
+plotly>=4.0
+pandas>1.0
+requests
+urllib3
+paho-mqtt
+PyYAML
