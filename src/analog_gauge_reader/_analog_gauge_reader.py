@@ -134,7 +134,7 @@ def main(port=None,
          warning_template='Pressure is $value at $time!',
          xmpp_recipients=None,  # warning recipients
          test_warning='', warn_no_detections_s=1800,
-        sensor_name='sensor1',
+         sensor_name='sensor1',
          r_inner_min=0.15, r_inner_max=0.6, r_outer_min=0.65, r_outer_max=1.0,  # valid needle location
          threshold=175, threshold_mode=None,  # threshold for detecting black needle from white background
          blur_size=5,  # line detection works better on slight blur. must be an odd number
@@ -341,7 +341,6 @@ def main(port=None,
                 requests.post(f'http://localhost:{port}/debug', pickle.dumps(debug_jpgs), timeout=1.0)
 
             # TODO: write to disk if --url was pointing to a file and in debug mode
-
 
         # send a warning if no successful needle detection was made in quite some time
         if (last_successful_detection_time + warn_no_detections_s) < time.time() and \
