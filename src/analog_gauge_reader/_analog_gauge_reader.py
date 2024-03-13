@@ -39,7 +39,8 @@ def angle2value(min_angle: float, max_angle: float, min_value: float,
     return float(new_value)
 
 
-def get_image(url=None, cam_id=None, username=None, password=None, **kwargs):
+def get_image(url=None, cam_id=None, username=None, password=None,
+              config_urls=None, **kwargs):
     """
     Imports an image.
 
@@ -75,6 +76,11 @@ def get_image(url=None, cam_id=None, username=None, password=None, **kwargs):
         while True:
             timestamp = datetime.now()
             logger.debug('Import image from URL %s', url)
+            for config_url in config_urls:
+                resp = requests.get(config_url,
+                                    auth=(username, password) if username is not None else None,
+                                    **kwargs)
+                logger.debug('%s resulted in %s: %s', config_url, resp, resp.reason)
             try:
                 # TODO do this in background thread
                 resp = requests.get(url,
@@ -129,6 +135,7 @@ def get_image(url=None, cam_id=None, username=None, password=None, **kwargs):
 
 def main(port=None,
          url=None, cam_id=0, username=None, password=None,  # parameters to access live image
+         config_url=None,
          min_angle=None, max_angle=None, min_value=None, max_value=None, unit='degree',  # scaling the dial
          min_warn=None, max_warn=None, warn_interval=600, no_warnings=False,  # warnings
          warning_template='Pressure is $value at $time!',
@@ -185,6 +192,7 @@ def main(port=None,
     # main loop
     for timestamp, img_c in get_image(url=url, cam_id=cam_id,
                                       username=username, password=password,
+                                      config_urls=config_url,
                                       timeout=5.0):
 
         # limit rate for the case the loop just falls through due to errors like "ConnectionRefused" or firewall

@@ -39,6 +39,9 @@ def setup_parser() -> argparse.ArgumentParser:
     g1.add_argument('--url', type=str, default=None,
                     help='Download image from an URL, e.g. http://camera.private.lan:8000/snapshot.cgi')
 
+    g.add_argument('--config-url', type=str, action='append',
+                   help="Provide an additional URL to configure camera bevor downloading the image")
+
     g.add_argument('--username', type=str, default=None,
                    help='Username used to download --url')
 
